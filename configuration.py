@@ -92,6 +92,12 @@ class Configuration(object):
                 default=ConfigData.auth_sess_cookie, type=str,
                 help="The _simple_auth cookie value from a web browser")
 
+        parser.add_argument(
+                "-i", "--ignore",
+                default=ConfigData.ignored_files, nargs='+', type=str,
+                help="Filenames to be ignored. These can be passed from file: "
+                "$ ./hb-downloader.py  -i \"$(<ignores.txt)\"")
+
         sub = parser.add_subparsers(
                 title="action", dest="action",
                 help=("Action to perform, optionally restricted to a few "
@@ -134,6 +140,7 @@ class Configuration(object):
         ConfigData.download_location = args.download_location
         ConfigData.chunk_size = args.chunksize
         ConfigData.auth_sess_cookie = args.auth_cookie
+        ConfigData.ignored_files = args.ignore
 
     @staticmethod
     def configure_action(args):
