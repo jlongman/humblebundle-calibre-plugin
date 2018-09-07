@@ -96,7 +96,7 @@ class Configuration(object):
                 "-i", "--ignore",
                 default=ConfigData.ignored_files, nargs='+', type=str,
                 help="Filenames to be ignored. These can be passed from file: "
-                "$ ./hb-downloader.py  -i \"$(<ignores.txt)\"")
+                "$ ./hb-downloader.py  -i $(<ignores.txt)")
 
         sub = parser.add_subparsers(
                 title="action", dest="action",
