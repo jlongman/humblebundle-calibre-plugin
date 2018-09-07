@@ -271,6 +271,8 @@ class HumbleDownload(object):
                                         current_order,
                                         current_subproduct,
                                         key)
+                    if hd.filename in ConfigData.ignored_files:
+                        continue
                     if hd.is_valid():
                         humble_downloads.append(hd)
         return humble_downloads

@@ -30,3 +30,5 @@ class ConfigData(object):
         'android': True,
         'asmjs': False
     }
+    
+    ignored_files = []
