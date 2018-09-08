@@ -62,8 +62,13 @@ class HBDDialog(QDialog):
         self.textlog.setReadOnly(True)
 
         self.refresh_label()
+        self.check_field_exists()
         self.resize(self.sizeHint())
 
+    
+    def check_field_exists(self):
+        db = self.db.new_api
+        
     
     def refresh_label(self):
         if prefs['cookie_auth_token'] == '' :
@@ -77,9 +82,7 @@ class HBDDialog(QDialog):
     def Import(self):
         # Identify any existing books with humblebundle tag
         db = self.db.new_api
-        existing_hb_filenames = { db.field_for('#humble_filename', book_id)
-                                for book_id in db.all_book_ids()
-                                if db.field_for('#humble_filename', book_id) != None }
+        existing_hb_filenames = db.all_field_names('#humble_filename')
         
         for name in existing_hb_filenames :
             self.textlog.append(name)
