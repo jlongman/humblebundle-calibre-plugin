@@ -40,7 +40,6 @@ class HBDDialog(QDialog):
         # Add label
         self.label = QLabel('')
         self.buttonlayout.addWidget(self.label)
-        self.refresh_label()
 
         # Add config button
         self.conf_button = QPushButton('Set authentication token', self)
@@ -62,18 +61,21 @@ class HBDDialog(QDialog):
         self.mainlayout.addWidget(self.textlog)
         self.textlog.setReadOnly(True)
 
+        self.refresh_label()
         self.resize(self.sizeHint())
 
     
     def refresh_label(self):
         if prefs['cookie_auth_token'] == '' :
             self.label.setText('Authentication token not set.')
+            self.Import_button.setEnabled(False)
         else:
             self.label.setText('Authentication token set.')
+            self.Import_button.setEnabled(True)
 
 
     def Import(self):
-        QMessageBox.about(self, 'Import', 'Doing thing...')
+        self.textlog.append('bing')
 
     #def marked(self):
         #''' Show books with only one format '''
