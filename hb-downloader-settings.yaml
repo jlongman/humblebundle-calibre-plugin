@@ -18,11 +18,11 @@ default_params:
   ajax: True
 
 download-platforms:
-  audio: True
+  audio: False
   ebook: True
-  windows: True
-  mac: True
-  linux: True
-  android: True
+  windows: False
+  mac: False
+  linux: False
+  android: False
   asmjs: False
 
