@@ -15,18 +15,17 @@ if False:
 
 # The class that all interface action plugins must inherit from
 from calibre.gui2.actions import InterfaceAction
-from calibre_plugins.interface_demo.main import DemoDialog
+from calibre_plugins.hb_downloader.main import DemoDialog
 
 class InterfacePlugin(InterfaceAction):
 
-    name = 'Interface Plugin Demo'
+    name = 'Humble-Bundle Downloader'
 
     # Declare the main action associated with this plugin
     # The keyboard shortcut can be None if you dont want to use a keyboard
     # shortcut. Remember that currently calibre has no central management for
     # keyboard shortcuts, so try to use an unusual/unused shortcut.
-    action_spec = ('Interface Plugin Demo', None,
-            'Run the Interface Plugin Demo', 'Ctrl+Shift+F1')
+    action_spec = ('HB Sync', None, 'Sync library with Humble', None)
 
     def genesis(self):
         # This method is called once per plugin, do initial setup here

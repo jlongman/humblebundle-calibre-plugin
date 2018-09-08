@@ -15,7 +15,7 @@ if False:
 
 from PyQt5.Qt import QDialog, QVBoxLayout, QPushButton, QMessageBox, QLabel
 
-from calibre_plugins.interface_demo.config import prefs
+from calibre_plugins.hb_downloader.config import prefs
 
 class DemoDialog(QDialog):
 
@@ -37,7 +37,7 @@ class DemoDialog(QDialog):
         self.label = QLabel(prefs['hello_world_msg'])
         self.l.addWidget(self.label)
 
-        self.setWindowTitle('Interface Plugin Demo')
+        self.setWindowTitle('Humble-Bundle Downloader')
         self.setWindowIcon(icon)
 
         self.about_button = QPushButton('About', self)
