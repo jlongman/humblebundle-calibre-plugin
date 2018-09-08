@@ -9,7 +9,7 @@ __docformat__ = 'restructuredtext en'
 # The class from which all Interface Action plugin wrappers must inherit.
 from calibre.customize import InterfaceActionBase
 
-class InterfacePluginDemo(InterfaceActionBase):
+class HBDownloaderInit(InterfaceActionBase):
 
     name                = 'Humble-Bundle Downloader'
     description         = 'Download ebooks from your Humble-Bundle library into calibre.'
@@ -18,7 +18,7 @@ class InterfacePluginDemo(InterfaceActionBase):
     version             = (1, 0, 0)
     minimum_calibre_version = (0, 7, 53)
 
-    actual_plugin       = 'calibre_plugins.hb_downloader.ui:InterfacePlugin'
+    actual_plugin       = 'calibre_plugins.hb_downloader.ui:HBDownloader'
 
 
     # Enable customization via Preferences->Plugins

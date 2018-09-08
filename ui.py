@@ -17,7 +17,7 @@ if False:
 from calibre.gui2.actions import InterfaceAction
 from calibre_plugins.hb_downloader.main import DemoDialog
 
-class InterfacePlugin(InterfaceAction):
+class HBDownloader(InterfaceAction):
 
     name = 'Humble-Bundle Downloader'
 
