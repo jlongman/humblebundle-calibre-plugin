@@ -7,7 +7,7 @@ __copyright__ = '2018, bd-ober <https://github.com/bd-ober>'
 __docformat__ = 'restructuredtext en'
 
 
-from PyQt5.Qt import QDialog, QVBoxLayout, QPushButton, QMessageBox, QLabel
+from PyQt5.Qt import QDialog, QHBoxLayout, QVBoxLayout, QPushButton, QMessageBox, QLabel, QTextEdit
 
 from calibre_plugins.hb_downloader.config import prefs
 
@@ -29,24 +29,38 @@ class HBDDialog(QDialog):
         self.setWindowTitle('Humble-Bundle Downloader')
         self.setWindowIcon(icon)
 
-        # Create layout
-        self.layout = QVBoxLayout()
-        self.setLayout(self.layout)
+        # Create main layout
+        self.mainlayout = QHBoxLayout()
+        self.setLayout(self.mainlayout)
+
+        # Create layout for buttons
+        self.buttonlayout = QVBoxLayout()
+        self.mainlayout.addLayout(self.buttonlayout)
 
         # Add label
         self.label = QLabel('')
-        self.layout.addWidget(self.label)
+        self.buttonlayout.addWidget(self.label)
         self.refresh_label()
-
-        # Add 'about' button
-        self.about_button = QPushButton('About', self)
-        self.about_button.clicked.connect(self.about)
-        self.layout.addWidget(self.about_button)
 
         # Add config button
         self.conf_button = QPushButton('Set authentication token', self)
         self.conf_button.clicked.connect(self.config)
-        self.layout.addWidget(self.conf_button)
+        self.buttonlayout.addWidget(self.conf_button)
+        
+        # Add Sync button
+        self.Import_button = QPushButton('Import', self)
+        self.Import_button.clicked.connect(self.Import)
+        self.buttonlayout.addWidget(self.Import_button)
+        
+        # Add 'about' button
+        self.about_button = QPushButton('About', self)
+        self.about_button.clicked.connect(self.about)
+        self.buttonlayout.addWidget(self.about_button)
+
+        # Add log pane
+        self.textlog = QTextEdit(self)
+        self.mainlayout.addWidget(self.textlog)
+        self.textlog.setReadOnly(True)
 
         self.resize(self.sizeHint())
 
@@ -58,10 +72,8 @@ class HBDDialog(QDialog):
             self.label.setText('Authentication token set.')
 
 
-    def about(self):
-        text = get_resources('about.txt')
-        QMessageBox.about(self, 'About Humble-Bundle downloader', text.decode('utf-8'))
-
+    def Import(self):
+        QMessageBox.about(self, 'Import', 'Doing thing...')
 
     #def marked(self):
         #''' Show books with only one format '''
@@ -132,3 +144,9 @@ class HBDDialog(QDialog):
     def config(self):
         self.do_user_config(parent=self)
         self.refresh_label()
+        self.textlog.append('Authentication token changed.')
+        
+        
+    def about(self):
+        text = get_resources('about.txt')
+        QMessageBox.about(self, 'About Humble-Bundle downloader', text.decode('utf-8'))
