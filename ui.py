@@ -9,7 +9,7 @@ __docformat__ = 'restructuredtext en'
 
 # The class from which all interface action plugins must inherit
 from calibre.gui2.actions import InterfaceAction
-from calibre_plugins.hb_downloader.main import DemoDialog
+from calibre_plugins.hb_downloader.main import HBDDialog
 
 class HBDownloader(InterfaceAction):
 
