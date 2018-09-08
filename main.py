@@ -63,7 +63,7 @@ class HBDDialog(QDialog):
 
         self.refresh_label()
         self.check_field_exists()
-        self.resize(self.sizeHint())
+        self.resize(800,200)
 
     
     def check_field_exists(self):
