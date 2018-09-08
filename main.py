@@ -1,23 +1,17 @@
 #!/usr/bin/env python2
 # vim:fileencoding=UTF-8:ts=4:sw=4:sta:et:sts=4:ai
-from __future__ import (unicode_literals, division, absolute_import,
-                        print_function)
+from __future__ import (unicode_literals, division, absolute_import, print_function)
 
 __license__   = 'GPL v3'
-__copyright__ = '2011, Kovid Goyal <kovid@kovidgoyal.net>'
+__copyright__ = '2018, bd-ober <https://github.com/bd-ober>'
 __docformat__ = 'restructuredtext en'
 
-if False:
-    # This is here to keep my python error checker from complaining about
-    # the builtin functions that will be defined by the plugin loading system
-    # You do not need this code in your plugins
-    get_icons = get_resources = None
 
 from PyQt5.Qt import QDialog, QVBoxLayout, QPushButton, QMessageBox, QLabel
 
 from calibre_plugins.hb_downloader.config import prefs
 
-class DemoDialog(QDialog):
+class HBDDialog(QDialog):
 
     def __init__(self, gui, icon, do_user_config):
         QDialog.__init__(self, gui)
