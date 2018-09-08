@@ -73,6 +73,7 @@ class HBDDialog(QDialog):
             self.textlog.append('#humble_filename field exists.')
         else:
             self.textlog.append('#humble_filename field does not exist.')
+            # TODO Create the field here
         
     
     def refresh_label(self):
@@ -82,7 +83,6 @@ class HBDDialog(QDialog):
         else:
             self.label.setText('Authentication token set.')
             self.Import_button.setEnabled(True)
-            # TODO Create the field here
 
 
     def Import(self):
