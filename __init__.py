@@ -6,6 +6,7 @@ __license__   = 'GPL v3'
 __copyright__ = '2018, bd-ober <https://github.com/bd-ober>'
 __docformat__ = 'restructuredtext en'
 
+
 # The class from which all Interface Action plugin wrappers must inherit.
 from calibre.customize import InterfaceActionBase
 

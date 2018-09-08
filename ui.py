@@ -41,7 +41,7 @@ class HBDownloader(InterfaceAction):
 
 
     def apply_settings(self):
-        from calibre_plugins.interface_demo.config import prefs
+        from calibre_plugins.hb_downloader.config import prefs
         # In an actual non trivial plugin, you would probably need to
         # do something based on the settings in prefs
         prefs
