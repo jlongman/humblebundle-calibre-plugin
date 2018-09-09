@@ -1,7 +1,16 @@
-The Interface Plugin Demo
+Unofficial Humble Bundle Downloader
 ===========================
 
-Created by Kovid Goyal
+Source code at:
+<https://github.com/bd-ober/humblebundle-calibre-plugin>
+
+Calibre created by Kovid Goyal:
+<https://github.com/kovidgoyal/calibre>
+
+hb-downloader by MayeulC, talonius:
+<https://github.com/bd-ober/humblebundle-calibre-plugin>
 
 Requires calibre >= 0.7.53
 
+Not affiliated with or in any way endorsed by https://www.humblebundle.com.
+The Humble-Bundle logo is used without permission.
