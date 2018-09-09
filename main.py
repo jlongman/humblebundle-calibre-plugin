@@ -13,6 +13,7 @@ from calibre_plugins.hb_downloader.config import prefs
 
 # Import hb-downloader stuff
 from calibre_plugins.hb_downloader.hb_downloader.humble_api.humble_api import HumbleApi
+from calibre_plugins.hb_downloader.hb_downloader.humble_download import HumbleDownload
 
 class HBDDialog(QDialog):
 
@@ -45,7 +46,7 @@ class HBDDialog(QDialog):
         self.buttonlayout.addWidget(self.label)
 
         # Add config button
-        self.conf_button = QPushButton('Set authentication token', self)
+        self.conf_button = QPushButton('Configure', self)
         self.conf_button.clicked.connect(self.config)
         self.buttonlayout.addWidget(self.conf_button)
         
@@ -106,9 +107,15 @@ class HBDDialog(QDialog):
         game_keys = hapi.get_gamekeys()
         self.textlog.append('%s orders/keys found...' % (len(game_keys)))
         
-        download_list = []
+        key_downloads = dict()
+        
+        # Get relevant downloads
+        num_books_found = 0
+        num_new_books = 0
         for key in game_keys:
+            humble_downloads = []
             order = hapi.get_order(key)
+            
             for subproduct in order.subproducts or []:
                 for download in subproduct.downloads or []:
                     # Check platform
@@ -116,13 +123,18 @@ class HBDDialog(QDialog):
                         continue
                     
                     for dl_struct in download.download_structs:
+                        num_books_found += 1
                         
                         # Check filename
                         if dl_struct.filename in existing_hb_filenames:
                             continue
-                        else:
-                            self.textlog.append(dl_struct.filename)
-
+                        
+                        humble_downloads.append( HumbleDownload(download, dl_struct, order, subproduct, key) )
+                        num_new_books += 1
+                        
+            key_downloads[key] = humble_downloads
+        
+        self.textlog.append('(%s/%s) books found do not already exist in Calibre...' % (num_new_books, num_books_found) )
 
 
     def config(self):
