@@ -87,8 +87,7 @@ class HumbleDownload(object):
 
             :return:  The full path and filename for the current download.
         """
-        return os.path.join(ConfigData.download_location, self.subproduct_name,
-                            self.platform, self.filename)
+        return os.path.join(ConfigData.download_location, self.filename)
 
     def remove(self):
         """
@@ -190,8 +189,7 @@ class HumbleDownload(object):
         """ Creates the directory for storing the current file if it doesn't
             exist.
         """
-        full_directory = os.path.join(ConfigData.download_location,
-                                      self.subproduct_name, self.platform)
+        full_directory = os.path.join(ConfigData.download_location)
         if not os.path.exists(full_directory):
             os.makedirs(full_directory)
 

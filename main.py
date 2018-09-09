@@ -14,6 +14,7 @@ from calibre_plugins.hb_downloader.config import prefs
 # Import hb-downloader stuff
 from calibre_plugins.hb_downloader.hb_downloader.humble_api.humble_api import HumbleApi
 from calibre_plugins.hb_downloader.hb_downloader.humble_download import HumbleDownload
+from calibre_plugins.hb_downloader.hb_downloader.config_data import ConfigData
 
 class HBDDialog(QDialog):
 
@@ -97,6 +98,8 @@ class HBDDialog(QDialog):
         
         # Attempt to authenticate
         hapi = HumbleApi(prefs['cookie_auth_token'])
+        ConfigData.download_location = prefs['download_loc']
+        
         if hapi.check_login():
             self.textlog.append('Authentication successful...')
         else:
@@ -135,6 +138,16 @@ class HBDDialog(QDialog):
             key_downloads[key] = humble_downloads
         
         self.textlog.append('(%s/%s) books found do not already exist in Calibre...' % (num_new_books, num_books_found) )
+        
+        ticker = 0
+        for key in key_downloads:
+            # Update URL in case of expiry
+            HumbleDownload.update_download_list_url(hapi, key_downloads.get(key))
+            
+            for hd in key_downloads.get(key):
+                ticker += 1
+                self.textlog.append('(%s/%s) Downloading %s ...' % (ticker, num_new_books, hd.filename) )
+                hd.download_file()
 
 
     def config(self):
