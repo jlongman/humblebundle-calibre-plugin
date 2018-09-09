@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import http.cookiejar
+import cookielib
 import itertools
 from .model.order import Order
 import requests

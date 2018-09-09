@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from .base_model import BaseModel
-from urllib.parse import urlparse
+from six.moves.urllib.parse import urlparse
 
 __author__ = "Joel Pedraza"
 __copyright__ = "Copyright 2014, Joel Pedraza"
