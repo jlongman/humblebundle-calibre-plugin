@@ -11,6 +11,9 @@ from PyQt5.Qt import QDialog, QHBoxLayout, QVBoxLayout, QPushButton, QMessageBox
 
 from calibre_plugins.hb_downloader.config import prefs
 
+# Import hb-downloader stuff
+from calibre_plugins.hb_downloader.hb_downloader.config_data import ConfigData
+
 class HBDDialog(QDialog):
 
     def __init__(self, gui, icon, do_user_config):
@@ -97,11 +100,13 @@ class HBDDialog(QDialog):
                 -- Add #humble_filename field to the new books
                 -- Delete from download directory?
         """
+        ConfigData.auth_sess_cookie = prefs['cookie_auth_token']
+        ConfigData.download_location = prefs['download_loc']
 
     def config(self):
         self.do_user_config(parent=self)
         self.refresh_label()
-        self.textlog.append('Authentication token changed.')
+        self.textlog.append('Config changed.')
         
         
     def about(self):
