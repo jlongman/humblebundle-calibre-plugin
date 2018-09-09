@@ -51,9 +51,8 @@ class HumbleApi(object):
         """
         self.session = requests.Session()
 
-        auth_sess_cookie = bytes(
-                auth_sess_cookie, "utf-8").decode("unicode_escape")
-        cookie = http.cookiejar.Cookie(
+        #auth_sess_cookie = bytes(auth_sess_cookie, "utf-8").decode("unicode_escape")
+        cookie = cookielib.Cookie(
                 0, "_simpleauth_sess", auth_sess_cookie, None, None,
                 "www.humblebundle.com", None, None, "/", None, True,
                 None, False, None, None, None)
@@ -79,7 +78,7 @@ class HumbleApi(object):
                 return True
             else:
                 return False
-        except HumbleAuthenticationException:
+        except:
             return False
 
     def get_gamekeys(self, *args, **kwargs):

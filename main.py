@@ -12,7 +12,7 @@ from PyQt5.Qt import QDialog, QHBoxLayout, QVBoxLayout, QPushButton, QMessageBox
 from calibre_plugins.hb_downloader.config import prefs
 
 # Import hb-downloader stuff
-from calibre_plugins.hb_downloader.hb_downloader.config_data import ConfigData
+from calibre_plugins.hb_downloader.hb_downloader.humble_api.humble_api import HumbleApi
 
 class HBDDialog(QDialog):
 
@@ -92,16 +92,38 @@ class HBDDialog(QDialog):
         # Identify any existing books with humblebundle tag
         db = self.db.new_api
         existing_hb_filenames = db.all_field_names('#humble_filename')
-        
         self.textlog.append(str(len(existing_hb_filenames)) + ' existing books from Humble Bundle identified.')
-        """
-        TODO    -- Pass existing_hb_filenames as ignores to hb-downloader, and download to a specified location
-                -- Have calibre import these
-                -- Add #humble_filename field to the new books
-                -- Delete from download directory?
-        """
-        ConfigData.auth_sess_cookie = prefs['cookie_auth_token']
-        ConfigData.download_location = prefs['download_loc']
+        
+        # Attempt to authenticate
+        hapi = HumbleApi(prefs['cookie_auth_token'])
+        if hapi.check_login():
+            self.textlog.append('Authentication successful...')
+        else:
+            self.textlog.append('Unable to login - check authentication token.')
+            return
+        
+        # Get orders
+        game_keys = hapi.get_gamekeys()
+        self.textlog.append('%s orders/keys found...' % (len(game_keys)))
+        
+        download_list = []
+        for key in game_keys:
+            order = hapi.get_order(key)
+            for subproduct in order.subproducts or []:
+                for download in subproduct.downloads or []:
+                    # Check platform
+                    if download.platform != 'ebook':
+                        continue
+                    
+                    for dl_struct in download.download_structs:
+                        
+                        # Check filename
+                        if dl_struct.filename in existing_hb_filenames:
+                            continue
+                        else:
+                            self.textlog.append(dl_struct.filename)
+
+
 
     def config(self):
         self.do_user_config(parent=self)
