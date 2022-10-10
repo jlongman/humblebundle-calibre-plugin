@@ -3,9 +3,9 @@
 
 __license__ = "MIT"
 
-from humble_download import HumbleDownload
-from progress_tracker import ProgressTracker
-from config_data import ConfigData
+from hb_downloader.humble_download import HumbleDownload
+from hb_downloader.progress_tracker import ProgressTracker
+from hb_downloader.config_data import ConfigData
 import logger
 
 

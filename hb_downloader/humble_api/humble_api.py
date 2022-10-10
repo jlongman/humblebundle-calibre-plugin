@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import cookielib
+import http.cookiejar as cookielib
 import itertools
 from .model.order import Order
-import requests
+import calibre_plugins.hb_downloader.requests as requests  
 from .exceptions.humble_response_exception import HumbleResponseException
 from .exceptions.humble_parse_exception import HumbleParseException
 

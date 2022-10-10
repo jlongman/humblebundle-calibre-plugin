@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+ #!/usr/bin/env python2
 # vim:fileencoding=UTF-8:ts=4:sw=4:sta:et:sts=4:ai
 from __future__ import (unicode_literals, division, absolute_import, print_function)
 
@@ -50,6 +50,6 @@ class ConfigWidget(QWidget):
         self.DownloadLabel.setBuddy(self.DownloadMsg)
 
     def save_settings(self):
-        prefs['cookie_auth_token'] = unicode(self.AuthMsg.text())
-        prefs['download_loc'] = unicode(self.DownloadMsg.text())
-
+        
+        prefs['cookie_auth_token'] = self.AuthMsg.text()
+        prefs['download_loc'] = self.DownloadMsg.text()

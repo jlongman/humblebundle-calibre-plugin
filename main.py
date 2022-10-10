@@ -9,12 +9,12 @@ __docformat__ = 'restructuredtext en'
 
 from PyQt5.Qt import QDialog, QHBoxLayout, QVBoxLayout, QPushButton, QMessageBox, QLabel, QTextEdit
 
-from calibre_plugins.hb_downloader.config import prefs
-
+from config import prefs
+import os
 # Import hb-downloader stuff
-from calibre_plugins.hb_downloader.hb_downloader.humble_api.humble_api import HumbleApi
-from calibre_plugins.hb_downloader.hb_downloader.humble_download import HumbleDownload
-from calibre_plugins.hb_downloader.hb_downloader.config_data import ConfigData
+from hb_downloader.humble_api.humble_api import HumbleApi
+from hb_downloader.humble_download import HumbleDownload
+from hb_downloader.config_data import ConfigData
 
 class HBDDialog(QDialog):
 
@@ -93,13 +93,19 @@ class HBDDialog(QDialog):
     def Import(self):
         # Identify any existing books with humblebundle tag
         db = self.db.new_api
-        existing_hb_filenames = db.all_field_names('#humble_filename')
+        if self.check_field_exists():
+            existing_hb_filenames = db.all_field_names('#humble_filename')
+        else:
+            existing_hb_filenames = []
         self.textlog.append(str(len(existing_hb_filenames)) + ' existing books from Humble Bundle identified.')
         
         # Attempt to authenticate
         hapi = HumbleApi(prefs['cookie_auth_token'])
         ConfigData.download_location = prefs['download_loc']
-        
+        full_directory = os.path.join(ConfigData.download_location)
+        if not os.path.exists(full_directory):
+            os.makedirs(full_directory)
+
         if hapi.check_login():
             self.textlog.append('Authentication successful...')
         else:
@@ -146,6 +152,10 @@ class HBDDialog(QDialog):
             
             for hd in key_downloads.get(key):
                 ticker += 1
+    
+                if hd.filename.endswith('.cbz') or hd.filename.endswith(".pdf"):
+                    self.textlog.append('(%s/%s) Skipping %s ...' % (ticker, num_new_books, hd.filename))
+                    continue
                 self.textlog.append('(%s/%s) Downloading %s ...' % (ticker, num_new_books, hd.filename) )
                 hd.download_file()
 

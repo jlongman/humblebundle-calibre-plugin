@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import logger
-from humble_api.events import Events
+from hb_downloader.humble_api.events import Events
 
 __author__ = "Brian Schkerke"
 __copyright__ = "Copyright 2016 Brian Schkerke"
