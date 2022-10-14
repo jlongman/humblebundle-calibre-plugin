@@ -16,6 +16,7 @@ prefs = JSONConfig('plugins/hb_downloader')
 # Set defaults
 prefs.defaults['cookie_auth_token'] = ''
 prefs.defaults['download_loc'] = '~/Downloads/'
+prefs.defaults['skip_count'] = '0'
 
 class ConfigWidget(QWidget):
 
@@ -24,7 +25,6 @@ class ConfigWidget(QWidget):
         QWidget.__init__(self)
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
-        
         
         self.AuthLayout = QHBoxLayout()
         self.layout.addLayout(self.AuthLayout)
@@ -49,7 +49,19 @@ class ConfigWidget(QWidget):
         self.DownloadLayout.addWidget(self.DownloadMsg)
         self.DownloadLabel.setBuddy(self.DownloadMsg)
 
+        self.SkipLayout = QHBoxLayout()
+        self.layout.addLayout(self.SkipLayout)
+
+        self.SkipLabel = QLabel('Skip amount:')
+        self.SkipLayout.addWidget(self.SkipLabel)
+
+        self.SkipMsg = QLineEdit(self)
+        self.SkipMsg.setText(prefs['skip_count'])
+        self.SkipLayout.addWidget(self.SkipMsg)
+        self.SkipLabel.setBuddy(self.SkipMsg)
+
     def save_settings(self):
         
         prefs['cookie_auth_token'] = self.AuthMsg.text()
         prefs['download_loc'] = self.DownloadMsg.text()
+        prefs['skip_count'] = self.SkipMsg.text()
